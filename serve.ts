@@ -1,6 +1,7 @@
 // Import the express in typescript file
 import express from 'express';
 import { indexRoute } from './route';
+import { createTaskPage} from './route/createTask'
 import  OpenAI from "openai";
 import { date } from './views/component/date';
 require('dotenv').config();
@@ -53,10 +54,9 @@ app.get ('/openai', async (req, res) => {
 
     res.send("\n"+(await new_completion).choices[0].message.content+"\n");
 });
-
-app.post('/click',(req,res)=>{
-    res.send("textoo");
-});
+app.get('/create-task',(req,res)=>{
+    res.send(createTaskPage)
+})
  
 // Server setup
 app.listen(port, () => {

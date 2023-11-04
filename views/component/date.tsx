@@ -1,6 +1,4 @@
 import * as elements from 'typed-html';
-const datepicker = require('js-datepicker')
-const picker = datepicker('.date')
 
 export const date =           
 <div id="date">
@@ -8,17 +6,23 @@ export const date =
 
     <div class="row gy-3">
         <div class="col-md-6">
-            <input type="text" class="date"/>
+        <label for="datestart" class="form-label">Task start</label> 
+        <br />
+        <input type="date" id='datestart'/>
+        <br />
         </div>
 
         <div class="col-md-6">
-            <label for="cc-number" class="form-label">Credit card number</label>
-            <input type="text" class="form-control" id="cc-number" placeholder="" required=""/>
-            <div class="invalid-feedback">
-            Credit card number is required
-            </div>
+        <label for="dadateendtestart" class="form-label">Task end</label> 
+        <br />
+        <input type="date" id='dateend'/>
         </div>
 
+        <div class="col-md-6">
+        <label for="dadateendtestart" class="form-label">Maximum daily hours</label> 
+        <br />
+        <input type="number" id='maxHours' max='23'/>
+        </div>
     </div>
 
     <hr class="my-4"/>
