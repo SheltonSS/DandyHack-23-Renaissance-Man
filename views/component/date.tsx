@@ -13,9 +13,9 @@ export const date =
         </div>
 
         <div class="col-md-6">
-        <label for="dadateendtestart" class="form-label">Task end</label> 
+        <label for="dateDayDuration" class="form-label">Task end</label> 
         <br />
-        <input type="date" id='dateend'/>
+        <input type="number" id='dateDayDuration' min='1'/>
         </div>
 
         <div class="col-md-6">
