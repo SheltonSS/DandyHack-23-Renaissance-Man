@@ -1,33 +1,67 @@
 BEGIN:VCALENDAR
 VERSION:2.0
+PRODID:-//Calendar//Soccer Game Planning//EN
 BEGIN:VEVENT
-DTSTART:20210401T090000Z
-DTEND:20210401T123000Z 
-SUMMARY:Understand your task and Start Gathering Information 
-DESCRIPTION:Research for any necessary permissions, laws or regulations for organizing a soccer game in your neighborhood. Also, get a rough estimate on how many kids will participate. 
-END:VEVENT 
-BEGIN:VEVENT
-DTSTART:20210402T090000Z
-DTEND:20210402T120000Z
-SUMMARY:Planning 
-DESCRIPTION:Begin to gather necessary equipment like balls, goal posts, jerseys, etc. Decide on the teams, either random selection or skill-based. 
+UID:1
+DTSTART:20231104T090000
+DTEND:20231104T103000
+SUMMARY:Define scope and structure of the soccer game
+DESCRIPTION:Decide on the number of players, rules of the game, and general format (tournament style or one-off game).
 END:VEVENT
 BEGIN:VEVENT
-DTSTART:20210403T090000Z
-DTEND:20210403T123000Z 
-SUMMARY:Invitations and publicizing the event 
-DESCRIPTION:Design and Print (if necessary) invitations, also create online outreach if possible. Distribute the invites among the neighborhood. 
-END:VEVENT 
-BEGIN:VEVENT 
-DTSTART:20210404T090000Z 
-DTEND:20210404T120000Z 
-SUMMARY:Finalize details 
-DESCRIPTION:Finalize teams based on the responses and availability. Organize refreshments for the teams and audiences. 
-END:VEVENT 
-BEGIN:VEVENT 
-DTSTART:20210405T080000Z 
-DTEND:20210405T110000Z 
-SUMMARY:The Big Day! 
-DESCRIPTION:Set up the ground early in the morning. Enjoy the Game! 
-END:VEVENT 
+UID:2
+DTSTART:20231104T103000
+DTEND:20231104T110000
+SUMMARY:Break time
+DESCRIPTION:Take a short break to rest your brain.
+END:VEVENT
+BEGIN:VEVENT
+UID:3
+DTSTART:20231104T110000
+DTEND:20231104T123000
+SUMMARY:Identify potential participants
+DESCRIPTION:Start compiling a list of kids interested and their respective parents who'd agree to their participation.
+END:VEVENT
+BEGIN:VEVENT
+UID:4
+DTSTART:20231105T090000
+DTEND:20231105T103000
+SUMMARY:Field selection and preparation
+DESCRIPTION:Identify a suitable location to play the game. Make sure it's safe and accessible. Prepare it for the game if necessary.
+END:VEVENT
+BEGIN:VEVENT
+UID:5
+DTSTART:20231105T103000
+DTEND:20231105T110000
+SUMMARY:Break time
+DESCRIPTION:Take a short break to rest your brain.
+END:VEVENT
+BEGIN:VEVENT
+UID:6
+DTSTART:20231105T110000
+DTEND:20231105T123000
+SUMMARY:Start creating teams
+DESCRIPTION:Balance the teams based on the skill levels of the players.
+END:VEVENT
+BEGIN:VEVENT
+UID:7
+DTSTART:20231106T090000
+DTEND:20231106T103000
+SUMMARY:Secure necessary equipment
+DESCRIPTION:Make sure you have enough footballs, goals, and other equipment required.
+END:VEVENT
+BEGIN:VEVENT
+UID:8
+DTSTART:20231106T103000
+DTEND:20231106T110000
+SUMMARY:Break time
+DESCRIPTION:Have a break to recharge.
+END:VEVENT
+BEGIN:VEVENT
+UID:9
+DTSTART:20231106T110000
+DTEND:20231106T123000
+SUMMARY:Revise and finalize the structure, rules, and teams
+DESCRIPTION:Ensure everything is in place and everyone involved knows the plan.
+END:VEVENT
 END:VCALENDAR
