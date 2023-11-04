@@ -1,6 +1,8 @@
 // Import the express in typescript file
 import express from 'express';
-import { indexRoute } from './route';
+import { indexRoute } from './route/index';
+import { createTaskPage } from './route/createTask';
+
 import  OpenAI from "openai";
 require('dotenv').config();
 
@@ -14,7 +16,7 @@ app.use(express.static('public'))
 
 
 // Handling '/' Request
-app.get('/', (req, res) => {
+app.get(['/','/index'], (req, res) => {
     res.send(indexRoute);
 });
 
@@ -29,11 +31,9 @@ app.get ('/openai', async (req, res) => {
     });
     res.send("\n"+(await completion).choices[0].message.content+"\n");
 });
-
-app.post('/click',(req,res)=>{
-    res.send("textoo");
-});
- 
+app.get ('/create-task', async (req, res) => {
+    res.send(createTaskPage);
+}); 
 // Server setup
 app.listen(port, () => {
     console.log(`TypeScript with Express
