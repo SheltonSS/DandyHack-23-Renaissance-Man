@@ -3,27 +3,19 @@ import express from 'express';
 import { indexRoute } from './route';
 import { createTaskPage} from './route/createTask'
 import  OpenAI from "openai";
-import { date } from './views/component/date';
 require('dotenv').config();
 import { writeFileSync } from 'fs';
+var bodyParser = require('body-parser');
 
-const ics = require ('ics');
 
 
-function formatICS(input:String): String {
-    // const parts = input.split(/\s(?!END:|\d{8}T\d{6})/);
-    // return parts.join('\n');
-    for (var part of input){
-        
-    }
-}
+
 // Initialize the express engine
 const app: express.Application = express();
- 
 // Take a port 3000 for running server.
 const port: number = 3000;
-app.use(express.static('public'))
-
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Handling '/' Request
 app.get('/', (req, res) => {
@@ -92,15 +84,21 @@ app.get ('/we', async (req, res) => {
     });
 
     // const completionString : String = (await new_completion).choices[0].message.content!;
-    const icsContent = formatICS((await new_completion).choices[0].message.content!);
-    console.log(icsContent);
-    res.send("\n"+icsContent+"\n");
     
 });
 app.get('/create-task',(req,res)=>{
     res.send(createTaskPage)
 })
- 
+app.post('/create-task/process',(req,res)=>{
+    var taskName = req.body.taskname;
+    var taskDescripion = req.body.taskdescripion;
+    var dateStart = req.body.datestart;
+    var dateDayDuration = req.body.datedayduration;
+    var maxHours = req.body.maxhours;
+    console.log(req.body);
+    res.sendStatus(200);
+
+})
 // Server setup
 app.listen(port, () => {
     console.log(`TypeScript with Express

@@ -24,9 +24,9 @@ export const createTask =
       <h2>Create a new task</h2>
     </div>
     
-    <div class="row r-5 "> 
+    <div class="row r-5 ">  
       <div class="col-md-7 col-lg-8">
-        <form class="needs-validation" novalidate="" method="get">
+        <form class="needs-validation" action='/create-task/process' novalidate="" method="post">
           {taskinfo}
           {date}
           <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>

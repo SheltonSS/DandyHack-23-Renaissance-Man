@@ -8,20 +8,20 @@ export const date =
         <div class="col-md-6">
         <label for="datestart" class="form-label">Task start</label> 
         <br />
-        <input type="date" id='datestart'/>
+        <input type="date" id='datestart' name='datestart'/>
         <br />
         </div>
 
         <div class="col-md-6">
-        <label for="dateDayDuration" class="form-label">Task end</label> 
+        <label for="dateDayDuration" class="form-label">Deadline</label> 
         <br />
-        <input type="number" id='dateDayDuration' min='1'/>
+        <input type="number" id='dateDayDuration' min='1' name='dateDayDuration'/>
         </div>
 
         <div class="col-md-6">
         <label for="dadateendtestart" class="form-label">Maximum daily hours</label> 
         <br />
-        <input type="number" id='maxHours' max='23'/>
+        <input type="number" id='maxHours' max='23' name='maxHours'/>
         </div>
     </div>
 
