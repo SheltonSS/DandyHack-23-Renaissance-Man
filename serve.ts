@@ -2,8 +2,11 @@
 import express from 'express';
 import { indexRoute } from './route/index';
 import { createTaskPage } from './route/createTask';
+import { dateRoute } from './route/date';
+import { taskinfoRoute } from './route/taskinfo';
 
 import  OpenAI from "openai";
+import { date } from './views/component/date';
 require('dotenv').config();
 
 
@@ -33,6 +36,12 @@ app.get ('/openai', async (req, res) => {
 });
 app.get ('/create-task', async (req, res) => {
     res.send(createTaskPage);
+}); 
+app.get ('/date', async (req, res) => {
+    res.send(dateRoute);
+}); 
+app.get ('/task-info', async (req, res) => {
+    res.send(taskinfoRoute);
 }); 
 // Server setup
 app.listen(port, () => {
