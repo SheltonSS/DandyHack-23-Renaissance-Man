@@ -37,12 +37,6 @@ app.get ('/openai', async (req, res) => {
 app.get ('/create-task', async (req, res) => {
     res.send(createTaskPage);
 }); 
-app.get ('/date', async (req, res) => {
-    res.send(dateRoute);
-}); 
-app.get ('/task-info', async (req, res) => {
-    res.send(taskinfoRoute);
-}); 
 // Server setup
 app.listen(port, () => {
     console.log(`TypeScript with Express
