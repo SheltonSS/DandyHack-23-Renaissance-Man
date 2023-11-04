@@ -1,13 +1,67 @@
 BEGIN:VCALENDAR
-CALSCALE:GREGORIAN
-METHOD:PUBLISH
-PRODID:-//Test Cal//EN
 VERSION:2.0
+PRODID:-//Calendar//Soccer Game Planning//EN
 BEGIN:VEVENT
-UID:test-1
-DTSTART;VALUE=DATE:20231104
-DTEND;VALUE=DATE:20231104
-SUMMARY:
-DESCRIPTION:
+UID:1
+DTSTART:20231104T090000
+DTEND:20231104T103000
+SUMMARY:Define scope and structure of the soccer game
+DESCRIPTION:Decide on the number of players, rules of the game, and general format (tournament style or one-off game).
+END:VEVENT
+BEGIN:VEVENT
+UID:2
+DTSTART:20231104T103000
+DTEND:20231104T110000
+SUMMARY:Break time
+DESCRIPTION:Take a short break to rest your brain.
+END:VEVENT
+BEGIN:VEVENT
+UID:3
+DTSTART:20231104T110000
+DTEND:20231104T123000
+SUMMARY:Identify potential participants
+DESCRIPTION:Start compiling a list of kids interested and their respective parents who'd agree to their participation.
+END:VEVENT
+BEGIN:VEVENT
+UID:4
+DTSTART:20231105T090000
+DTEND:20231105T103000
+SUMMARY:Field selection and preparation
+DESCRIPTION:Identify a suitable location to play the game. Make sure it's safe and accessible. Prepare it for the game if necessary.
+END:VEVENT
+BEGIN:VEVENT
+UID:5
+DTSTART:20231105T103000
+DTEND:20231105T110000
+SUMMARY:Break time
+DESCRIPTION:Take a short break to rest your brain.
+END:VEVENT
+BEGIN:VEVENT
+UID:6
+DTSTART:20231105T110000
+DTEND:20231105T123000
+SUMMARY:Start creating teams
+DESCRIPTION:Balance the teams based on the skill levels of the players.
+END:VEVENT
+BEGIN:VEVENT
+UID:7
+DTSTART:20231106T090000
+DTEND:20231106T103000
+SUMMARY:Secure necessary equipment
+DESCRIPTION:Make sure you have enough footballs, goals, and other equipment required.
+END:VEVENT
+BEGIN:VEVENT
+UID:8
+DTSTART:20231106T103000
+DTEND:20231106T110000
+SUMMARY:Break time
+DESCRIPTION:Have a break to recharge.
+END:VEVENT
+BEGIN:VEVENT
+UID:9
+DTSTART:20231106T110000
+DTEND:20231106T123000
+SUMMARY:Revise and finalize the structure, rules, and teams
+DESCRIPTION:Ensure everything is in place and everyone involved knows the plan.
 END:VEVENT
 END:VCALENDAR

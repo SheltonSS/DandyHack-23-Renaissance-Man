@@ -17,16 +17,12 @@ export const blankPage = (bodyInnerHtml: string,title: string) => {
                 <link href="../../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet"/>
                 <link href="../../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"/>
                 <link href="../../assets/css/style.css" rel="stylesheet"></link>
-                <script src="https://unpkg.com/hyperscript.org@0.9.9"></script>
                 <script src="https://unpkg.com/htmx.org@1.9.3" integrity="sha384-lVb3Rd/Ca0AxaoZg5sACe8FJKF0tnUgR2Kd7ehUOG5GCcROv5uBIZsOqovBAcWua" crossorigin="anonymous"></script>
                 <script src="https://cdn.tailwindcss.com"></script>
-
-  <script src="../../assets/vendor/aos/aos.js"></script>
+                <script src="../../assets/vendor/aos/aos.js"></script>
   <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../../assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="../../assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="../../assets/vendor/php-email-form/validate.js"></script>
-
 
   <script src="../../assets/js/main.js"></script>
             </head>
