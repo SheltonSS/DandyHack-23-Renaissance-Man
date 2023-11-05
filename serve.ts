@@ -242,9 +242,7 @@ app.post('/create-task/process',async (req,res)=>{
     var fileContents = Buffer.from(createICS(events));
     var readStream = new stream.PassThrough();
     readStream.end(fileContents);
-
-    res.set('Content-disposition', 'attachment; filename=' + "task.ics");
-    res.set({'Content-Type':'text/plain','Location': '/index'});
+    res.set({'Content-disposition':'attachment; filename=' + "task.ics",'Content-Type':'text/plain'});
     readStream.pipe(res);
     
 
