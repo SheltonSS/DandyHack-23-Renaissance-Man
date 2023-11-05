@@ -2,7 +2,7 @@ import * as elements from 'typed-html';
 
 export const date =           
 <div id="date">
-    <h4 class="mb-3">Payment</h4>
+    <br/>
 
     <div class="row gy-3">
         <div class="col-md-6">

@@ -21,9 +21,8 @@ export const createTask =
     <div class="container">
     
     <div class="py-5 ">
-      <h2>Create a new task</h2>
+      <h2>Enter In Your Task!</h2>
     </div>
-    
     <div class="row r-5 ">  
       <div class="col-md-7 col-lg-8">
         <form id='form' action="/create-task/process" method='POST'>
