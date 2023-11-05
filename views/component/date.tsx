@@ -6,7 +6,7 @@ export const date =
 
     <div class="row gy-3">
         <div class="col-md-6">
-        <label for="datestart" class="form-label">Task start</label> 
+        <label for="datestart" class="form-label">Task Start Date</label> 
         <br />
         <input type="date" id='datestart' name='datestart'/>
         <br />
@@ -19,7 +19,7 @@ export const date =
         </div>
 
         <div class="col-md-6">
-        <label for="dadateendtestart" class="form-label">Maximum daily hours</label> 
+        <label for="dadateendtestart" class="form-label">Maximum Daily Hours</label> 
         <br />
         <input type="number" id='maxHours' max='23' name='maxHours'/>
         </div>
