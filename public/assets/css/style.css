@@ -10,7 +10,7 @@
 # General
 --------------------------------------------------------------*/
 body {
-  font-family: "Times New Roman";
+  font-family: "Open Sans", sans-serif;
   color: #000000;
 }
 
@@ -30,7 +30,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Times New Roman";
+  font-family: "Raleway", sans-serif;
 }
 /*--------------------------------------------------------------
 # Image
@@ -75,6 +75,35 @@ h6 {
     transition-delay: 0 !important;
   }
 }
+/*--------------------------------------------------------------
+# Buttons
+--------------------------------------------------------------*/
+.btn-14 {
+  background: rgb(255, 255, 255);
+  border: none;
+}
+.btn-14:after {
+  border-radius: 5px;
+  background-color: #ffffff;
+  background-image: linear-gradient(315deg, #000000 0%, #ffffff 74%);
+  box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5);
+  transition: all 0.3s ease;
+}
+.btn-14:hover {
+  color: #000;
+}
+.custom-btn {
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+}
+
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
@@ -355,128 +384,7 @@ h6 {
 .navbar-mobile .dropdown>.dropdown-active {
   display: block;
 }
-/*--------------------------------------------------------------
-# LOADING
---------------------------------------------------------------*/
-/* Absolute Center Spinner */
-.loading {
-  position: fixed;
-  z-index: 999;
-  height: 2em;
-  width: 2em;
-  overflow: visible;
-  margin: auto;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-}
 
-/* Transparent Overlay */
-.loading:before {
-  content: '';
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.3);
-}
-
-/* :not(:required) hides these rules from IE9 and below */
-.loading:not(:required) {
-  /* hide "loading..." text */
-  font: 0/0 a;
-  color: transparent;
-  text-shadow: none;
-  background-color: transparent;
-  border: 0;
-}
-
-.loading:not(:required):after {
-  content: '';
-  display: block;
-  font-size: 10px;
-  width: 1em;
-  height: 1em;
-  margin-top: -0.5em;
-  -webkit-animation: spinner 1500ms infinite linear;
-  -moz-animation: spinner 1500ms infinite linear;
-  -ms-animation: spinner 1500ms infinite linear;
-  -o-animation: spinner 1500ms infinite linear;
-  animation: spinner 1500ms infinite linear;
-  border-radius: 0.5em;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
-  box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
-}
-
-/* Animation */
-
-@-webkit-keyframes spinner {
-  0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-@-moz-keyframes spinner {
-  0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-@-o-keyframes spinner {
-  0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-@keyframes spinner {
-  0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
@@ -515,10 +423,41 @@ h6 {
   font-size: 20px;
 }
 
+#hero .download-btn {
+  font-family: "Raleway", sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  display: inline-block;
+  padding: 8px 24px 10px 46px;
+  border-radius: 3px;
+  transition: 0.5s;
+  color: #fff;
+  background: #47536e;
+  position: relative;
+}
+
+#hero .download-btn:hover {
+  background: #5777ba;
+}
+
+#hero .download-btn i {
+  font-size: 20px;
+  position: absolute;
+  left: 18px;
+  top: 8.5px;
+}
+
+#hero .download-btn+.download-btn {
+  margin-left: 20px;
+}
 
 @media (max-width: 991px) {
   #hero {
     text-align: center;
+  }
+
+  #hero .download-btn+.download-btn {
+    margin: 0 10px;
   }
 
   #hero .hero-img {
@@ -570,6 +509,18 @@ section {
   padding-bottom: 30px;
 }
 
+.section-title h2 {
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  padding-bottom: 0;
+  color: #5777ba;
+  font-family: "Poppins", sans-serif;
+}
+
+.section-title p {
+  margin-bottom: 0;
+}
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
@@ -595,7 +546,41 @@ section {
 }
 
 
-#virtuoso {
+.virtuoso {
+  text-align: center;
+  justify-content: center;  
+  font-family: "Artifika";
 
-  font-family: "Times New Roman";
+  font-size: 50 !important;
+}
+
+
+.number-input {
+  /* Size and spacing */
+  width: 100%; /* or fixed width, e.g., 200px */
+  padding: 10px; /* Adjust the padding as needed */
+  margin: 5px 0; /* Spacing around the input */
+
+  /* Typography */
+  font-size: 14x; /* Choose an appropriate font size */
+  font-family: 'Arial', sans-serif; /* Use a web-safe font or import a custom one */
+  color: #333; /* Text color for the input */
+
+  /* Colors and borders */
+  background-color: #fff; /* Background color of the input */
+  border: 1px solid #ddd; /* Border color */
+  border-radius: 4px; /* Rounded corners */
+
+  /* Interactive states */
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition for interactive states */
+}
+
+.number-input:focus {
+  border-color: #5b9bd5; /* Border color when the input is focused */
+  box-shadow: 0 0 5px rgba(91, 155, 213, 0.5); /* Add a glow effect on focus */
+  outline: none; /* Remove the default focus outline */
+}
+
+.number-input:hover {
+  border-color: #a0a0a0; /* Slightly change the border color on hover */
 }
