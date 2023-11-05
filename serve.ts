@@ -233,14 +233,13 @@ app.post('/create-task/process',async (req,res)=>{
         }],
         model:"gpt-4",
     });
-    
-    // const completionString : String = (await new_completion).choices[0].message.content!;
+
+    //takes the prompt and gets the ICS thing but in one line with no ne wline characters. saves that to icsContent
     const icsContent = formatICS((await completion).choices[0].message.content!);
     // console.log(icsContent);
     //res.send("\n"+icsContent+"\n");
     
-
-
+    //createICS( events) takes in the ICS string from the single line ICS and creates a event )
     const downLink = downloadElement(createICS(events));
 
     res.send(downLink);
