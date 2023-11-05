@@ -26,8 +26,8 @@ export const createTask =
         <form id='form' action="/create-task/process" method='POST'>
           {taskinfo}
           {date}
+          <button class="w-100 btn btn-primary btn-lg" style='background-color: #FE938C;' type='submit' >Generate Sceduale</button>
         </form>
-        <button class="w-100 btn btn-primary btn-lg" style='background-color: #FE938C;' type='submit' >Generate Sceduale</button>
       </div>
     </div>
 
