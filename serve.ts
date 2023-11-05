@@ -5,10 +5,10 @@ import { createTaskPage} from './route/createTask'
 import  OpenAI from "openai";
 require('dotenv').config();
 import { writeFileSync } from 'fs';
+
+import { createEvent } from 'ics';
+import { Console } from 'console';
 var bodyParser = require('body-parser');
-
-
-
 
 // Initialize the express engine
 const app: express.Application = express();
@@ -33,46 +33,196 @@ let Task = {
     Start_Date: ' ' ,
     End_Date: ' ',
     Max_Time_Per_Day: ' ' , 
-    // Preferences: ' ',
- };
+};
 
-const event = {
-    start: [2018, 5, 30, 6, 30],
-    duration: { hours: 6, minutes: 30 },
-    title: 'Bolder Boulder',
-    description: 'Annual 10-kilometer run in Boulder, Colorado',
-    location: 'Folsom Field, University of Colorado (finish line)',
-    url: 'http://www.bolderboulder.com/',
-    geo: [],
-    categories: [],
-    status: 'CONFIRMED',
-    busyStatus: 'BUSY',
-    organizer: { name: 'Admin', email: '' },
-    attendees: []
+type EventData = {
+    uid: string;
+    summary: string;
+    description: string;
+    start: string; // Format: 'YYYYMMDDTHHmmssZ'
+    end: string;   // Format: 'YYYYMMDDTHHmmssZ'
+    timestamp: string; // Format: 'YYYYMMDDTHHmmssZ'
+    location?: string;
 };
 
 
+//create the ICS File
+function createICS(events: EventData[]): string {
+  // iCalendar file header
+  let icsFileContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//TEAM:FUH//Renissance Man//EN\n`;
 
+  for (const event of events) {
+    // Begin Event
+    icsFileContent += `BEGIN:VEVENT\n`;
+
+    icsFileContent += `UID:${event.uid}\n`;
+    icsFileContent += `DTSTAMP:${event.timestamp}\n`;
+    icsFileContent += `DTSTART:${event.start}\n`;
+    icsFileContent += `DTEND:${event.end}\n`;
+    icsFileContent += `SUMMARY:${event.summary}\n`;
+    icsFileContent += `DESCRIPTION:${event.description}\n`;
+    
+    // End Event
+    icsFileContent += `END:VEVENT\n`;
+  }
+
+  // iCalendar file footer
+  icsFileContent += `END:VCALENDAR`;
+
+  return icsFileContent;
+};
+
+let events: EventData[] = [];
+
+function formatICS(input:String): String {
+    let temp_event: EventData = {
+        uid: "string",
+        summary: "string",
+        description: "string",
+        start: "string", // Format: 'YYYYMMDDTHHmmssZ'
+        end: "string",   // Format: 'YYYYMMDDTHHmmssZ'
+        timestamp: "string", // Format: 'YYYYMMDDTHHmmssZ'
+    };
+    
+    
+    const parts = input.split(/\s(?!END:|\d{8}T\d{6})/);
+    // const information = parts.join('\n');
+    let information = '';
+    let i = 0;
+
+    while (i < parts.length) {
+        let line = parts[i];
+
+        // Log the line for debugging purposes.
+        console.log(i + ":" + line);
+        //SUMMARY
+        if (line.startsWith("SUMMARY:")) {
+            
+            let summary = line.substring(line.indexOf(':')+1);
+            i++;
+
+            
+            while (i < parts.length && !parts[i].includes(':')) {
+                summary = summary+ " " + parts[i];
+                i++;
+            }
+            if((parts[i].includes(':') && parts[i].includes('.')) && ( parts[i].indexOf(':') > parts[i].indexOf('.')) ){
+                summary = summary+ " " + parts[i].substring(0,parts[i].indexOf('.'));
+                i++;
+            }
+
+            
+            console.log("summary: " + summary);
+            temp_event.summary=summary;
+
+            // We don't increment `i` here because the while loop already does it.
+            
+            information += "*SUMMARY*:" + summary + '\n';
+
+        //DESCRIPTION
+        } else if( line.startsWith("DESCRIPTION")) {
+        //---
+        
+            let description = line.substring(line.indexOf(':')+1); 
+            i++;
+
+            
+            while (i < parts.length && !parts[i].includes(':')) {
+                description = description+ " " + parts[i];
+                i++;
+            }
+            if((parts[i].includes(':') && parts[i].includes('.')) && ( parts[i].indexOf(':') > parts[i].indexOf('.')) ){
+                description = description+ " " + parts[i].substring(0,parts[i].indexOf('.'));
+                i++;
+            }
+
+            
+            console.log("description: " + description);
+            temp_event.description=description;
+
+
+            // We don't increment `i` here because the while loop already does it.
+            
+            information += "*DESCRIPTION*:" + description + '\n';
+            
+        }else if (line.startsWith("DTSTART")) {
+            let start = line.substring(line.indexOf(':')+1); 
+            i++;
+
+            
+            while (i < parts.length && !parts[i].includes(':')) {
+                start = start+ " " + parts[i];
+                i++;
+            }
+            if((parts[i].includes(':') && parts[i].includes('.')) && ( parts[i].indexOf(':') > parts[i].indexOf('.')) ){
+                start = start+ " " + parts[i].substring(0,parts[i].indexOf('.'));
+                i++;
+            }
+            
+            console.log("start: " + start);
+            temp_event.start=start;
+
+
+            // We don't increment `i` here because the while loop already does it.
+            
+            information += "*START*:" + start + '\n';
+        }else if (line.startsWith("DTEND")) {
+            
+            // let substring: String = line.substring(line.indexOf(':'));
+            let end = line.substring(line.indexOf(':')+1); 
+            i++;
+
+            
+            while (i < parts.length && !parts[i].includes(':')) {
+                end = end+ " " + parts[i];
+                i++;
+            }
+            if((parts[i].includes(':') && parts[i].includes('.')) && ( parts[i].indexOf(':') > parts[i].indexOf('.')) ){
+                end = end+ " " + parts[i].substring(0,parts[i].indexOf('.'));
+                i++;
+            }
+            
+            console.log("end: " + end);
+            temp_event.end=end;
+
+            //create an event
+            events.push({
+                uid: i.toString(),
+                summary: temp_event.summary,
+                description: temp_event.description,
+                start: temp_event.start, // Format: 'YYYYMMDDTHHmmssZ'
+                end: temp_event.end,   // Format: 'YYYYMMDDTHHmmssZ'
+                timestamp: "20231104T090000", // Format: 'YYYYMMDDTHHmmssZ'
+            });
+
+            // We don't increment `i` here because the while loop already does it.
+            
+            information += "*END*:" + end + '\n';
+        } else if (line.startsWith("END:VEVENT")) {
+        
+        } else {
+            // For lines that are not summary, just append them to information.
+            // console.log(line);
+            information += line + '\n';
+            i++;
+        }
+    }
+    return information.trim();
+}
+
+//example task
 Task.Task_Description = "I have to orginaze a soccer game for the neighborhood kids";
 Task.Start_Date = "11/4/2023";
 Task.End_Date = "11/14/2023";
 Task.Max_Time_Per_Day = "3"
 
-
-app.get ('/openai', async (req, res) => {
-    const completion = openai.chat.completions.create({
-        messages:[{
-        role: "system", 
-        content: "you are now renissanceGPT, a helpful AI scheduling assistant. Your job is to take tasks and break them down into subgoals taking the user's start date, end date,max time they are willing to work on it in a day, and task description into account and curating a schedule that will help them complete their task. keep in mind that the human brain can only focus for 1.5 hours on a given task effecitly. leave time for breaks if they have to do multiple tasks in a day. include newline characters. write a proposed schedule in this format:\nstart of Day: \nSubgoal: \nAdvice: \n{start time} - {end time} \n{other subgoals if time allows} \nend of day: \nthis is the task: " +  "\nTask description: "+Task.Task_Description + "\nTask StartDate: " + Task.Start_Date + "\nTask EndDate:" + Task.End_Date + "\nMask Time Per Day"+ Task.Max_Time_Per_Day,
-        }],
-        model:"gpt-4",
-    });
-});
 app.get ('/we', async (req, res) => {
     const completion = openai.chat.completions.create({
         messages:[{
         role: "system", 
-        content: "you are now renissanceGPT, a helpful AI scheduling assistant. Your job is to take tasks and break them down into subgoals taking the user's start date, end date,max time they are willing to work on it in a day, and task description into account and curating a schedule that will help them complete their task. keep in mind that the human brain can only focus for 1.5 hours on a given task effecitly. leave time for breaks if they have to do multiple tasks in a day. include newline characters. write a proposed schedule in this format:\nstart of Day: \nSubgoal: \nAdvice: \n{start time} - {end time} \n{other subgoals if time allows} \nend of day: \nthis is the task: " +  "\nTask description: "+Task.Task_Description + "\nTask StartDate: " + Task.Start_Date + "\nTask EndDate:" + Task.End_Date + "\nMask Time Per Day"+ Task.Max_Time_Per_Day,
+        content: "Take the role of a helpful AI scheduling assistant. Your job is to take tasks and break them down into subgoals taking the user's start date, end date,max time they are willing to work on it in a day, and task description into account and curating a schedule that will help them complete their task. keep in mind that the human brain can only focus for 1.5 hours on a given task effecitly. leave time for breaks if they have to do multiple tasks in a day. include newline characters. write a proposed schedule in this format:\nstart of Day: \nSubgoal: \nAdvice: \n{start time} - {end time} \n{other subgoals if time allows} \nend of day: \nthis is the task: " +  "\nTask description: "+Task.Task_Description + "\nTask StartDate: " + Task.Start_Date + "\nTask EndDate:" + Task.End_Date + "\nMask Time Per Day"+ Task.Max_Time_Per_Day,
         }],
         model:"gpt-4",
     });
@@ -80,17 +230,23 @@ app.get ('/we', async (req, res) => {
     const new_completion = await openai.chat.completions.create({
         messages:[{
             role: "system", 
-            content: (await completion).choices[0].message.content + "\nin ICS format, rewrite the informtaion",
+            content: (await completion).choices[0].message.content + "\nin ICS format, rewrite the informtaion. minimize colen use, do not put any refrence to date or day in the description. ",
         }],
             model:"gpt-4",
     });
 
     // const completionString : String = (await new_completion).choices[0].message.content!;
+    const icsContent = formatICS((await new_completion).choices[0].message.content!);
+    // console.log(icsContent);
+    res.send("\n"+icsContent+"\n");
+    console.log(createICS(events));
     
 });
+
 app.get('/create-task',(req,res)=>{
     res.send(createTaskPage)
 })
+
 app.post('/create-task/process',(req,res)=>{
     var taskName = req.body.taskname;
     var taskDescripion = req.body.taskdescripion;
@@ -101,9 +257,8 @@ app.post('/create-task/process',(req,res)=>{
     setTimeout(function() {
         res.sendStatus(200);
     }, 5000);
-
-
 })
+
 // Server setup
 app.listen(port, () => {
     console.log(`TypeScript with Express
