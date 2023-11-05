@@ -3,16 +3,10 @@ export const mainPage = <div>
 <header id="header" class="fixed-top  header-transparent ">
     <div class="container d-flex align-items-center justify-content-between">
       <div class="logo">
-        <h1>Renaissance m </h1>
+        <h1 class="virtuoso">Virtuoso</h1>
       </div>
 
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="getstarted scrollto" href="#features">About</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav>
+      
 
     </div>
   </header>
