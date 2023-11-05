@@ -213,35 +213,6 @@ function formatICS(input:String): String {
     return information.trim();
 }
 
-// Function to create and download a file
-function createAndDownloadFile(fileName: string, content: string): void {
-    // Create a blob from the content
-    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-  
-    // Create an object URL for the blob
-    const url = URL.createObjectURL(blob);
-  
-    // Create a new anchor element
-    const downloadLink = document.createElement('a');
-  
-    // Set the href to the object URL
-    downloadLink.href = url;
-  
-    // Set the download attribute with the file name
-    downloadLink.download = fileName;
-  
-    // Append the link to the body (it does not need to be visible)
-    document.body.appendChild(downloadLink);
-  
-    // Programmatically click the link to trigger the download
-    downloadLink.click();
-  
-    // Remove the link from the document
-    document.body.removeChild(downloadLink);
-  
-    // Release the object URL
-    URL.revokeObjectURL(url);
-  }
   
  app.get('/dsa', async (req, res) => {
     res.send(downloadElement(""))
@@ -253,6 +224,24 @@ Task.End_Date = "11/16/2023";
 Task.Max_Time_Per_Day = "3"
 
 app.get ('/we', async (req, res) => {
+   
+
+
+  
+
+    
+});
+
+
+
+// app.get('/nous', function (req, res) { 
+// });
+
+app.post('/create-task/process',async(req,res)=>{
+    Task.Task_Description = req.body.taskdescripion;
+    Task.Start_Date = req.body.datestart;
+    Task.End_Date = req.body.datedayduration;
+    Task.Max_Time_Per_Day = req.body.maxhours; 
     const completion = openai.chat.completions.create({
         messages:[{
         role: "system", 
@@ -264,40 +253,15 @@ app.get ('/we', async (req, res) => {
     // const completionString : String = (await new_completion).choices[0].message.content!;
     const icsContent = formatICS((await completion).choices[0].message.content!);
     // console.log(icsContent);
-    // res.send("\n"+icsContent+"\n");
+    res.send("\n"+icsContent+"\n");
+
     console.log("\n"+createICS(events));
-
-     // Usage: create and download a file named 'sample.txt' with the text 'Hello, world!'
-    createAndDownloadFile('sample.txt', 'Hello, world!');  
-
-    // const blob = new Blob([createICS(events)], { type: 'text/plain' });
-    // const blobUrl = window.URL.createObjectURL("blob");
-  
-    // const downloadLink = document.createElement('a');
-    // downloadLink.href = blobUrl;
-    // downloadLink.download = "task.ics";
-    // res.download(blob);
-
-    
-});
-
-app.get('/create-task',(req,res)=>{
-    res.send(createTaskPage)
+    console.log(req.body);
+   
 })
 
-// app.get('/nous', function (req, res) { 
-// });
-
-app.post('/create-task/process',(req,res)=>{
-    var taskName = req.body.taskname;
-    var taskDescripion = req.body.taskdescripion;
-    var dateStart = req.body.datestart;
-    var dateDayDuration = req.body.datedayduration;
-    var maxHours = req.body.maxhours; 
-    console.log(req.body);
-    setTimeout(function() {
-        res.sendStatus(200);
-    }, 5000);
+app.get('/create-task',(req,res)=>{
+   res.send(createTaskPage)
 })
 
 // Server setup
