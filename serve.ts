@@ -256,7 +256,7 @@ app.get ('/we', async (req, res) => {
     const completion = openai.chat.completions.create({
         messages:[{
         role: "system", 
-        content: "Take the role of a helpful AI scheduling assistant. Your job is to take tasks and break them down into subgoals taking the user's start date, end date,max time they are willing to work on it in a day, and task description into account and curating a schedule that will help them complete their task. keep in mind that the human brain can only focus for 1.5 hours on a given task effecitly. leave time for breaks if they have to do multiple tasks in a day. write a proposed schedule in in ICS format. minimize colen use, do not put any refrence to date or day in the description. " +  "\n\nTask description: "+Task.Task_Description + "\nTask StartDate: " + Task.Start_Date + "\nTask EndDate:" + Task.End_Date + "\nMax Time Per Day"+ Task.Max_Time_Per_Day,
+        content: "Take the role of a helpful AI scheduling assistant. Your job is to take tasks and break them down into subgoals taking the user's start date, end date,max time they are willing to work on it in a day, and task description into account and curating a schedule that will help them complete their task. keep in mind that the human brain can only focus for 1.5 hours on a given task effecitly. leave time for breaks if they have to do multiple tasks in a day. write a proposed schedule in in ICS format. minimize colen use, do not put any refrence to date or day in the description. " +  "\n\nTask description: "+Task.Task_Description + "\nTask StartDate: " + Task.Start_Date + "\nDays until due:" + Task.End_Date + "\nMax Time Per Day"+ Task.Max_Time_Per_Day,
         }],
         model:"gpt-4",
     });
