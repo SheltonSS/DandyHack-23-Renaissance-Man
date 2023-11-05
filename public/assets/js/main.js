@@ -6,6 +6,10 @@
 * License: https://bootstrapmade.com/license/
 */
 (function() {
+  document.getElementById("form").addEventListener("submit", function(event) {
+    var element = document.getElementById("loadingspinner");
+    element.classList.add("loading");
+  });
   window.addEventListener('load', () => {
     AOS.init({
       duration: 1000,

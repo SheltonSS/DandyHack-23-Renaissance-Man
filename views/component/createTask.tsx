@@ -19,7 +19,7 @@ export const createTask =
 <main id="main">
   <section class="inner-page">
     <div class="container">
-    
+    <div id='loadingspinner'></div>
     <div class="py-5 ">
       <h2>Enter In Your Task!</h2>
     </div>
@@ -30,7 +30,7 @@ export const createTask =
           {date}
           <button class="w-100 btn btn-primary btn-lg" type='submit'>Generate</button>
         </form>
-        <button class="w-100 btn btn-primary btn-lg" hx-trigger="click" hx-post="/create-task/process" hx-swap="#form" hx-include="#form">Generate Sceduale</button>
+        <button class="w-100 btn btn-primary btn-lg" >Generate Sceduale</button>
       </div>
     </div>
 
