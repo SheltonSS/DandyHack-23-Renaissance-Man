@@ -89,7 +89,6 @@ function formatICS(input:String): String {
         timestamp: "string", // Format: 'YYYYMMDDTHHmmssZ'
     };
     
-    
     const parts = input.split(/\s(?!END:|\d{8}T\d{6})/);
     // const information = parts.join('\n');
     let information = '';
@@ -227,17 +226,32 @@ app.post('/create-task/process',async (req,res)=>{
   
 
     console.log("\n\n\n\n"+Task.Task_Description + "\n\n\n\n");
-    const completion = openai.chat.completions.create({
-        messages:[{
-        role: "system", 
-        content: "\n\nTask description: "+Task.Task_Description + "\nTask StartDate: " + Task.Start_Date + "\nDays until due:" + Task.End_Date + "\nMax Time Per Day"+ Task.Max_Time_Per_Day+"\nTake the role of a helpful AI scheduling assistant. Your job is to take tasks and break them down into subgoals taking the user's start date, end date,max time they are willing to work on it in a day, and task description into account and curating a schedule that will help them complete their task. keep in mind that the human brain can only focus for 1.5 hours on a given task effecitly. leave time for breaks if they have to do multiple tasks in a day. write a proposed schedule in in ICS format. minimize colen use, do not put any refrence to date or day in the description. ",
-        }],
-        model:"gpt-4",
-    });
-
-    //takes the prompt and gets the ICS thing but in one line with no ne wline characters. saves that to icsContent
-    const icsContent = formatICS((await completion).choices[0].message.content!);
-    // console.log(icsContent);
+    try {
+        const completion = openai.chat.completions.create({
+            messages:[{
+            role: "system", 
+            content: "\n\nTask description: "+Task.Task_Description + "\nTask StartDate: " + Task.Start_Date + "\nDays until due:" + Task.End_Date + "\nMax Time Per Day"+ Task.Max_Time_Per_Day+"\nTake the role of a helpful AI scheduling assistant. Your job is to take tasks and break them down into subgoals taking the user's start date, end date,max time they are willing to work on it in a day, and task description into account and curating a schedule that will help them complete their task. keep in mind that the human brain can only focus for 1.5 hours on a given task effecitly. leave time for breaks if they have to do multiple tasks in a day. write a proposed schedule in in ICS format. minimize colen use, do not put any refrence to date or day in the description. ",
+            }],
+            model:"gpt-4",
+        });
+    
+        //takes the prompt and gets the ICS thing but in one line with no ne wline characters. saves that to icsContent
+        const icsContent = formatICS((await completion).choices[0].message.content!);
+        
+      
+    } catch (error) {
+        const completion = openai.chat.completions.create({
+            messages:[{
+            role: "system", 
+            content: "\n\nTask description: "+Task.Task_Description + "\nTask StartDate: " + Task.Start_Date + "\nDays until due:" + Task.End_Date + "\nMax Time Per Day"+ Task.Max_Time_Per_Day+"\nTake the role of a helpful AI scheduling assistant. Your job is to take tasks and break them down into subgoals taking the user's start date, end date,max time they are willing to work on it in a day, and task description into account and curating a schedule that will help them complete their task. keep in mind that the human brain can only focus for 1.5 hours on a given task effecitly. leave time for breaks if they have to do multiple tasks in a day. write a proposed schedule in in ICS format. minimize colen use, do not put any refrence to date or day in the description. ",
+            }],
+            model:"gpt-4",
+        });
+    
+        //takes the prompt and gets the ICS thing but in one line with no ne wline characters. saves that to icsContent
+        const icsContent = formatICS((await completion).choices[0].message.content!);
+    }
+    
     //res.send("\n"+icsContent+"\n");
     var fileContents = Buffer.from(createICS(events));
     var readStream = new stream.PassThrough();
@@ -246,8 +260,6 @@ app.post('/create-task/process',async (req,res)=>{
     res.set('Content-disposition', 'attachment; filename=' + "task.ics");
     res.set({'Content-Type':'text/plain','Location': '/index'});
     readStream.pipe(res);
-    
-
     
 })
 
