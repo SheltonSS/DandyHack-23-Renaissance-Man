@@ -13,7 +13,7 @@ export const date =
         </div>
 
         <div class="col-md-6">
-        <label for="dateDayDuration" class="form-label">Deadline</label> 
+        <label for="dateDayDuration" class="form-label">Days Until Due</label> 
         <br />
         <input type="number" id='dateDayDuration' min='1' name='dateDayDuration'/>
         </div>

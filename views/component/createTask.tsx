@@ -30,7 +30,7 @@ export const createTask =
           {taskinfo}
           {date}
         </form>
-        <button class="w-100 btn btn-primary btn-lg" hx-trigger="click" hx-post="/create-task/process" hx-swap="#form" hx-include="#form">Continue to checkout</button>
+        <button class="w-100 btn btn-primary btn-lg" hx-trigger="click" hx-post="/create-task/process" hx-swap="#form" hx-include="#form">Generate Sceduale</button>
       </div>
     </div>
 
