@@ -26,11 +26,11 @@ export const createTask =
     
     <div class="row r-5 ">  
       <div class="col-md-7 col-lg-8">
-        <form class="needs-validation" action='/create-task/process' novalidate="" method="post">
+        <form id='form'>
           {taskinfo}
           {date}
-          <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
         </form>
+        <button class="w-100 btn btn-primary btn-lg" hx-trigger="click" hx-post="/create-task/process" hx-swap="#form" hx-include="#form">Continue to checkout</button>
       </div>
     </div>
 

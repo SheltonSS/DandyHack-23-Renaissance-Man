@@ -15,6 +15,8 @@ const app: express.Application = express();
 // Take a port 3000 for running server.
 const port: number = 3000;
 app.use(express.static('public'));
+app.use(express.static('public/assets/img'));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Handling '/' Request
@@ -94,9 +96,12 @@ app.post('/create-task/process',(req,res)=>{
     var taskDescripion = req.body.taskdescripion;
     var dateStart = req.body.datestart;
     var dateDayDuration = req.body.datedayduration;
-    var maxHours = req.body.maxhours;
+    var maxHours = req.body.maxhours; 
     console.log(req.body);
-    res.sendStatus(200);
+    setTimeout(function() {
+        res.sendStatus(200);
+    }, 5000);
+
 
 })
 // Server setup

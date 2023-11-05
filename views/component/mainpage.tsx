@@ -1,16 +1,9 @@
 import * as elements from 'typed-html';
-// img {
-//   display: block;
-//   margin-left: auto;
-//   margin-right: auto;
-//   width: 50%;
-// }
-
 export const mainPage = <div>
 <header id="header" class="fixed-top  header-transparent ">
     <div class="container d-flex align-items-center justify-content-between">
       <div class="logo">
-        <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"/></a>
+        <a href="index.html"><img src="renaisaance_man_logo.png" alt="" class="img-fluid"/></a>
       </div>
 
       <nav id="navbar" class="navbar">
@@ -39,19 +32,20 @@ export const mainPage = <div>
 
     </div>
   </header>
-
-
-  <section id="hero" class="d-flex align-items-center">
-
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1" data-aos="fade-up">
-           <img src = "public/assets/img/renaisaance_man_logo copy.jpg" alt = "renaissance man"></img>
-        </div>
+  <section id="hero" style='justify-content: center;' class="d-flex align-items-center">
+    <div class="d-flex justify-content-center">
+      <div style="width: 100%;"class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1 aos-init aos-animate" data-aos="fade-up">
+        <img src="renaisaance_man_logo.png" alt="renaissance man"/>
       </div>
     </div>
-
   </section>
+  <footer id="footer">
+  <div class="container py-4">
+    <div class="credits">
+      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
+  </div>
+</footer>
   </div>
 
 
