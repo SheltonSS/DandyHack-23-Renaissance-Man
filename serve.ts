@@ -2,13 +2,14 @@
 import express from 'express';
 import { indexRoute } from './route';
 import { createTaskPage} from './route/createTask'
-import {downloadElement} from './route/downloadfile'
 import  OpenAI from "openai";
 require('dotenv').config();
 import { writeFileSync } from 'fs';
 
+
 import { createEvent } from 'ics';
 import { Console } from 'console';
+import {downloadElement} from './route/downloadfile'
 var bodyParser = require('body-parser');
 
 // Initialize the express engine
@@ -47,7 +48,7 @@ type EventData = {
 };
 
 
-//create the ICS File function
+//create the ICS File
 function createICS(events: EventData[]): string {
   // iCalendar file header
   let icsFileContent = `BEGIN:VCALENDAR
@@ -213,56 +214,66 @@ function formatICS(input:String): String {
     return information.trim();
 }
 
-  
- app.get('/dsa', async (req, res) => {
-    res.send(downloadElement(""))
-    });
 //example task
-Task.Task_Description = "I have to orginaze a soccer game for the neighborhood kids";
-Task.Start_Date = "11/6/2023";
-Task.End_Date = "11/16/2023";
-Task.Max_Time_Per_Day = "3"
+app.post('/create-task/process',async (req,res)=>{
 
-app.get ('/we', async (req, res) => {
-   
-
-
+    var taskName = req.body.taskname;
+    Task.Task_Description = req.body.taskdescription;
+    console.log()
+    Task.Start_Date = req.body.datestart;
+    Task.End_Date = req.body.deadline;
+    Task.Max_Time_Per_Day = req.body.maxhours; 
   
 
-    
-});
-
-
-
-// app.get('/nous', function (req, res) { 
-// });
-
-app.post('/create-task/process',async(req,res)=>{
-    Task.Task_Description = req.body.taskdescripion;
-    Task.Start_Date = req.body.datestart;
-    Task.End_Date = req.body.datedayduration;
-    Task.Max_Time_Per_Day = req.body.maxhours; 
+    console.log("\n\n\n\n"+Task.Task_Description + "\n\n\n\n");
     const completion = openai.chat.completions.create({
         messages:[{
         role: "system", 
-        content: "Take the role of a helpful AI scheduling assistant. Your job is to take tasks and break them down into subgoals taking the user's start date, end date,max time they are willing to work on it in a day, and task description into account and curating a schedule that will help them complete their task. keep in mind that the human brain can only focus for 1.5 hours on a given task effecitly. leave time for breaks if they have to do multiple tasks in a day. write a proposed schedule in in ICS format. minimize colen use, do not put any refrence to date or day in the description. " +  "\n\nTask description: "+Task.Task_Description + "\nTask StartDate: " + Task.Start_Date + "\nDays until due:" + Task.End_Date + "\nMax Time Per Day"+ Task.Max_Time_Per_Day,
+        content: "Take the role of a helpful AI scheduling assistant. Your job is to take tasks and break them down into subgoals taking the user's start date, end date,max time they are willing to work on it in a day, and task description into account and curating a schedule that will help them complete their task. keep in mind that the human brain can only focus for 1.5 hours on a given task effectively. leave time for breaks if they have to do multiple tasks in a day. include newline characters. write a proposed schedule in this format:\nstart of Day: \nSubgoal: \nAdvice: \n{start time} - {end time} \n{other subgoals if time allows} \nend of day: \nthis is the task: " +  "\nTask description: "+Task.Task_Description + "\nTask StartDate: " + Task.Start_Date + "\nTask EndDate:" + Task.End_Date + "\nMax Time Per Day"+ Task.Max_Time_Per_Day,
         }],
         model:"gpt-4",
     });
 
-    // const completionString : String = (await new_completion).choices[0].message.content!;
-    const icsContent = formatICS((await completion).choices[0].message.content!);
-    // console.log(icsContent);
-    res.send("\n"+icsContent+"\n");
+    const new_completion = await openai.chat.completions.create({
+        messages:[{
+            role: "system", 
+            content: (await completion).choices[0].message.content + "\nin ICS format, rewrite the informtaion. minimize colen use, do not put any refrence to date or day in the description. ",
+        }],
+            model:"gpt-4",
+    });
 
-    console.log("\n"+createICS(events));
-    console.log(req.body);
+    // const completionString : String = (await new_completion).choices[0].message.content!;
+    const icsContent = formatICS((await new_completion).choices[0].message.content!);
+    // console.log(icsContent);
+    //res.send("\n"+icsContent+"\n");
+    
+
+
+    const downLink = downloadElement(createICS(events));
+
+    res.send(downLink);
    
+    console.log(req.body);
+    
+
+    
 })
+
+
+
+
+// Task.Task_Description = "I have to orginaze a soccer game for the neighborhood kids";
+// Task.Start_Date = "11/4/2023";
+// Task.End_Date = "11/14/2023";
+// Task.Max_Time_Per_Day = "3"
+
 
 app.get('/create-task',(req,res)=>{
-   res.send(createTaskPage)
+    res.send(createTaskPage)
 })
+
+
+
 
 // Server setup
 app.listen(port, () => {
