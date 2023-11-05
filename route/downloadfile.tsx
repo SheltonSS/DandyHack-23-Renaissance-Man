@@ -1,13 +1,15 @@
 import * as elements from "typed-html";
 
-function createAndDownloadFile(fileName: string, content: string): String {
+function createAndDownloadFile(fileName: string, content: string): File {
+  var downloadUrl = null;
   // Create a blob from the content
-  const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+ var blob = new Blob([content],{type : "text/plain;charset=utf-8"});
+  const b: any = blob;
+  //A Blob() is almost a File() - it's just missing the two properties below which we will add
+  b.lastModifiedDate = new Date();
+  b.name = fileName;
 
-  // Create an object URL for the blob
-  const url = URL.createObjectURL(blob);
-
-  return <a href={url} download={fileName} />;
+  return b as File;
 }
 export const downloadElement = (content: string) => {
   return createAndDownloadFile("task.ics", content);

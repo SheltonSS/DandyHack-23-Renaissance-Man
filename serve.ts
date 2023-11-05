@@ -5,6 +5,7 @@ import { createTaskPage} from './route/createTask'
 import  OpenAI from "openai";
 require('dotenv').config();
 import { writeFileSync } from 'fs';
+var stream = require('stream');
 
 
 import { createEvent } from 'ics';
@@ -104,19 +105,20 @@ function formatICS(input:String): String {
             
             let summary = line.substring(line.indexOf(':')+1);
             i++;
-
             
             while (i < parts.length && !parts[i].includes(':')) {
                 summary = summary+ " " + parts[i];
                 i++;
             }
+
             if((parts[i].includes(':') && parts[i].includes('.')) && ( parts[i].indexOf(':') > parts[i].indexOf('.')) ){
                 summary = summary+ " " + parts[i].substring(0,parts[i].indexOf('.'));
                 i++;
             }
+            console.log(summary);
+
 
             
-            console.log("summary: " + summary);
             temp_event.summary=summary;
 
             // We don't increment `i` here because the while loop already does it.
@@ -141,7 +143,6 @@ function formatICS(input:String): String {
             }
 
             
-            console.log("description: " + description);
             temp_event.description=description;
 
 
@@ -163,7 +164,6 @@ function formatICS(input:String): String {
                 i++;
             }
             
-            console.log("start: " + start);
             temp_event.start=start;
 
 
@@ -186,7 +186,6 @@ function formatICS(input:String): String {
                 i++;
             }
             
-            console.log("end: " + end);
             temp_event.end=end;
 
             //create an event
@@ -238,13 +237,14 @@ app.post('/create-task/process',async (req,res)=>{
     const icsContent = formatICS((await completion).choices[0].message.content!);
     // console.log(icsContent);
     //res.send("\n"+icsContent+"\n");
-    
-    //createICS( events) takes in the ICS string from the single line ICS and creates a event )
-    const downLink = downloadElement(createICS(events));
+    var fileContents = Buffer.from(createICS(events));
+    var readStream = new stream.PassThrough();
+    readStream.end(fileContents);
 
-    res.send(downLink);
+    res.set('Content-disposition', 'attachment; filename=' + "task.ics");
+    res.set('Content-Type', 'text/plain');
+    readStream.pipe(res);
    
-    console.log(req.body);
     
 
     
