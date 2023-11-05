@@ -227,19 +227,11 @@ app.get ('/we', async (req, res) => {
         model:"gpt-4",
     });
 
-    // const new_completion = await openai.chat.completions.create({
-    //     messages:[{
-    //         role: "system", 
-    //         content: (await completion).choices[0].message.content + "\nin ICS format, rewrite the informtaion. minimize colen use, do not put any refrence to date or day in the description. ",
-    //     }],
-    //         model:"gpt-4",
-    // });
-
     // const completionString : String = (await new_completion).choices[0].message.content!;
     const icsContent = formatICS((await completion).choices[0].message.content!);
     // console.log(icsContent);
     res.send("\n"+icsContent+"\n");
-    console.log(createICS(events));
+    console.log("\n"+createICS(events));
     
 });
 
