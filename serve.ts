@@ -189,14 +189,16 @@ function formatICS(input:String): String {
             temp_event.end=end;
 
             //create an event
-            events.push({
-                uid: i.toString(),
-                summary: temp_event.summary,
-                description: temp_event.description,
-                start: temp_event.start, // Format: 'YYYYMMDDTHHmmssZ'
-                end: temp_event.end,   // Format: 'YYYYMMDDTHHmmssZ'
-                timestamp: "20231104T090000", // Format: 'YYYYMMDDTHHmmssZ'
-            });
+            if(temp_event.summary!="string"){
+                events.push({
+                    uid: i.toString(),
+                    summary: temp_event.summary,
+                    description: temp_event.description,
+                    start: temp_event.start, // Format: 'YYYYMMDDTHHmmssZ'
+                    end: temp_event.end,   // Format: 'YYYYMMDDTHHmmssZ'
+                    timestamp: "20231105T090000", // Format: 'YYYYMMDDTHHmmssZ'
+                });
+            }
 
             // We don't increment `i` here because the while loop already does it.
             
@@ -228,7 +230,7 @@ app.post('/create-task/process',async (req,res)=>{
     const completion = openai.chat.completions.create({
         messages:[{
         role: "system", 
-        content: "Take the role of a helpful AI scheduling assistant. Your job is to take tasks and break them down into subgoals taking the user's start date, end date,max time they are willing to work on it in a day, and task description into account and curating a schedule that will help them complete their task. keep in mind that the human brain can only focus for 1.5 hours on a given task effecitly. leave time for breaks if they have to do multiple tasks in a day. write a proposed schedule in in ICS format. minimize colen use, do not put any refrence to date or day in the description. " +  "\n\nTask description: "+Task.Task_Description + "\nTask StartDate: " + Task.Start_Date + "\nDays until due:" + Task.End_Date + "\nMax Time Per Day"+ Task.Max_Time_Per_Day,
+        content: "\n\nTask description: "+Task.Task_Description + "\nTask StartDate: " + Task.Start_Date + "\nDays until due:" + Task.End_Date + "\nMax Time Per Day"+ Task.Max_Time_Per_Day+"\nTake the role of a helpful AI scheduling assistant. Your job is to take tasks and break them down into subgoals taking the user's start date, end date,max time they are willing to work on it in a day, and task description into account and curating a schedule that will help them complete their task. keep in mind that the human brain can only focus for 1.5 hours on a given task effecitly. leave time for breaks if they have to do multiple tasks in a day. write a proposed schedule in in ICS format. minimize colen use, do not put any refrence to date or day in the description. ",
         }],
         model:"gpt-4",
     });
