@@ -23,7 +23,7 @@ app.use(express.static('public/assets/img'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Handling '/' Request
-app.get('/', (req, res) => {
+app.get(['/','/index'], (req, res) => {
     res.send(indexRoute);
 });
 
@@ -244,7 +244,7 @@ app.post('/create-task/process',async (req,res)=>{
     readStream.end(fileContents);
 
     res.set('Content-disposition', 'attachment; filename=' + "task.ics");
-    res.set({'Content-Type':'text/plain','Location': '/'});
+    res.set({'Content-Type':'text/plain','Location': '/index'});
     readStream.pipe(res);
     
 
