@@ -34,9 +34,11 @@ export const mainPage = <div>
   </header>
   <section id="hero" style='justify-content: center;' class="d-flex align-items-center">
     <div >
-      <div style="width: 100%;"class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1 aos-init aos-animate" data-aos="fade-up">
-        <div class='image'hx-trigger="click" hx-push-url="/create-task"/>
-        <div class='imageButton'/>
+      <div id='click' style="width: 100%;"class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1 aos-init aos-animate" data-aos="fade-up">
+        <a href="/create-task">
+          <div class='image'/>
+          <div class='imageButton'/>
+        </a>
       </div>
     </div>
   </section>
