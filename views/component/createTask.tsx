@@ -20,13 +20,15 @@ export const createTask =
   <section class="inner-page">
     <div class="container">
     <div id='loadingspinner'></div>
-    <h1>Enter In Your Task!</h1>
+    <h1 style='font-size: 25'>Enter In Your Task!</h1>
+    <br></br>
+
     <div class="row r-5 ">  
       <div class="col-md-7 col-lg-8">
         <form id='form' action="/create-task/process" method='POST'>
           {taskinfo}
           {date}
-          <button class="w-100 btn btn-primary btn-lg" style='background-color: #FE938C;' type='submit' >Generate Sceduale</button>
+          <button class="w-100 btn btn-primary btn-lg" style='background-color: #FE938C;' type='submit' >Generate Schedule</button>
         </form>
       </div>
     </div>
