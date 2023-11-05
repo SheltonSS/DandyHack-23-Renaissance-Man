@@ -1,7 +1,7 @@
 import * as elements from 'typed-html';
 export const mainPage = <div>
 <header id="header" class="fixed-top  header-transparent ">
-    <div class="container d-flex align-items-center justify-content-between">
+    <div class="container d-flex align-items-center justify-content-center">
       <div class="logo">
         <h1 class="virtuoso">Virtuoso</h1>
       </div>
