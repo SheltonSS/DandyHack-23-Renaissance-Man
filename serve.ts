@@ -2,6 +2,7 @@
 import express from 'express';
 import { indexRoute } from './route';
 import { createTaskPage} from './route/createTask'
+import {downloadElement} from './route/downloadfile'
 import  OpenAI from "openai";
 require('dotenv').config();
 import { writeFileSync } from 'fs';
@@ -46,7 +47,7 @@ type EventData = {
 };
 
 
-//create the ICS File
+//create the ICS File function
 function createICS(events: EventData[]): string {
   // iCalendar file header
   let icsFileContent = `BEGIN:VCALENDAR
@@ -212,10 +213,43 @@ function formatICS(input:String): String {
     return information.trim();
 }
 
+// Function to create and download a file
+function createAndDownloadFile(fileName: string, content: string): void {
+    // Create a blob from the content
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  
+    // Create an object URL for the blob
+    const url = URL.createObjectURL(blob);
+  
+    // Create a new anchor element
+    const downloadLink = document.createElement('a');
+  
+    // Set the href to the object URL
+    downloadLink.href = url;
+  
+    // Set the download attribute with the file name
+    downloadLink.download = fileName;
+  
+    // Append the link to the body (it does not need to be visible)
+    document.body.appendChild(downloadLink);
+  
+    // Programmatically click the link to trigger the download
+    downloadLink.click();
+  
+    // Remove the link from the document
+    document.body.removeChild(downloadLink);
+  
+    // Release the object URL
+    URL.revokeObjectURL(url);
+  }
+  
+ app.get('/dsa', async (req, res) => {
+    res.send(downloadElement(""))
+    });
 //example task
 Task.Task_Description = "I have to orginaze a soccer game for the neighborhood kids";
-Task.Start_Date = "11/4/2023";
-Task.End_Date = "11/14/2023";
+Task.Start_Date = "11/6/2023";
+Task.End_Date = "11/16/2023";
 Task.Max_Time_Per_Day = "3"
 
 app.get ('/we', async (req, res) => {
@@ -230,14 +264,29 @@ app.get ('/we', async (req, res) => {
     // const completionString : String = (await new_completion).choices[0].message.content!;
     const icsContent = formatICS((await completion).choices[0].message.content!);
     // console.log(icsContent);
-    res.send("\n"+icsContent+"\n");
+    // res.send("\n"+icsContent+"\n");
     console.log("\n"+createICS(events));
+
+     // Usage: create and download a file named 'sample.txt' with the text 'Hello, world!'
+    createAndDownloadFile('sample.txt', 'Hello, world!');  
+
+    // const blob = new Blob([createICS(events)], { type: 'text/plain' });
+    // const blobUrl = window.URL.createObjectURL("blob");
+  
+    // const downloadLink = document.createElement('a');
+    // downloadLink.href = blobUrl;
+    // downloadLink.download = "task.ics";
+    // res.download(blob);
+
     
 });
 
 app.get('/create-task',(req,res)=>{
     res.send(createTaskPage)
 })
+
+// app.get('/nous', function (req, res) { 
+// });
 
 app.post('/create-task/process',(req,res)=>{
     var taskName = req.body.taskname;
