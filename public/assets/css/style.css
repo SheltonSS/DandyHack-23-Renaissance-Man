@@ -11,16 +11,16 @@
 --------------------------------------------------------------*/
 body {
   font-family: "Open Sans", sans-serif;
-  color: #585a61;
+  color: #000000;
 }
 
 a {
-  color: #5777ba;
+  color: #ff796f;
   text-decoration: none;
 }
 
 a:hover {
-  color: #7b94c9;
+  color: #FE938C;
   text-decoration: none;
 }
 
@@ -404,7 +404,7 @@ h6 {
   width: 250%;
   height: 200%;
   z-index: -1;
-  background-color: #e8ecf5;
+  background-color: #FE938C;
   transform: skewY(135deg);
 }
 
@@ -501,7 +501,7 @@ section {
 }
 
 .section-bg {
-  background-color: #f2f5fa;
+  background-color: #FE938C;
 }
 
 .section-title {
@@ -525,11 +525,10 @@ section {
 # Footer
 --------------------------------------------------------------*/
 #footer {
-  background: #fff;
   padding: 0 0 30px 0;
   color: #47536e;
   font-size: 14px;
-  background: #eff2f8;
+  background: #ffd1ce;
 }
 #footer .credits {
   float: right;
