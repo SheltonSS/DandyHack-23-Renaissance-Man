@@ -15,13 +15,13 @@ export const date =
         <div class="col-md-6">
         <label for="dateDayDuration" class="form-label">Days Until Due</label> 
         <br />
-        <input type="number" id='dateDayDuration' min='1' name='dateDayDuration'/>
+        <input type="number" id='dateDayDuration' min='1' name='dateDayDuration' class='number-input'/>
         </div>
 
         <div class="col-md-6">
         <label for="dadateendtestart" class="form-label">Maximum Daily Hours</label> 
         <br />
-        <input type="number" id='maxHours' max='23' name='maxHours'/>
+        <input type="number" id='maxHours' max='23' name='maxHours' class='number-input'/>
         </div>
     </div>
 
