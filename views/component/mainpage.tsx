@@ -33,9 +33,10 @@ export const mainPage = <div>
     </div>
   </header>
   <section id="hero" style='justify-content: center;' class="d-flex align-items-center">
-    <div class="d-flex justify-content-center">
+    <div >
       <div style="width: 100%;"class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1 aos-init aos-animate" data-aos="fade-up">
-        <img src="renaisaance_man_logo.png" alt="renaissance man"/>
+        <div class='image'hx-trigger="click" hx-push-url="/create-task"/>
+        <div class='imageButton'/>
       </div>
     </div>
   </section>

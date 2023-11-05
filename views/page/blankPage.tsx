@@ -16,6 +16,7 @@ export const blankPage = (bodyInnerHtml: string,title: string) => {
                 <script src="https://unpkg.com/htmx.org@1.9.3" integrity="sha384-lVb3Rd/Ca0AxaoZg5sACe8FJKF0tnUgR2Kd7ehUOG5GCcROv5uBIZsOqovBAcWua" crossorigin="anonymous"></script>
                 <script src="https://cdn.tailwindcss.com"></script>
                 <script src="../../assets/vendor/aos/aos.js"></script>
+                <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
                 <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
                 <script src="../../assets/js/main.js"></script>
             </head>
